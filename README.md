@@ -1,27 +1,7 @@
-# JAICF Caila Bot template
+# Описание
 
-Here is a ready to use [JAICF](https://github.com/just-ai/jaicf-kotlin) bot template that can be ran locally or deployed to JAICP Cloud or Heroku server.
-
-# How to use
-
-Please refer to the detailed [Quick Start](https://github.com/just-ai/jaicf-kotlin/wiki/Quick-Start) that shows how to use this template with [JAICP](https://github.com/just-ai/jaicf-kotlin/tree/master/channels/jaicp) and [CAILA NLU](https://github.com/just-ai/jaicf-kotlin/tree/master/activators/caila) services.
-
-# Deploy to [JAICP Cloud](https://github.com/just-ai/jaicf-kotlin/wiki/JAICP-Cloud)
-
-JAICP Cloud provides one-click deploy for your bot, just click on the button below
-
-[![Deploy](https://just-ai.com/img/deploy-to-jaicp.svg)](https://app.jaicp.com/deploy)
-
-After deployment just add one or more channels on the _Channels_ page accordingly to your `JaicpServer.kt` configuration.
-
-# Deploy to [Heroku](https://github.com/just-ai/jaicf-kotlin/wiki/Heroku)
-
-If you would like to deploy this project to the Heroku cloud, just click on the button below
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-1. After deployment open the app and copy the URL of the app to clipboard.
-2. Then go to JAICP Web Interface, open your project's settings, select _webhook type_ of connection and paste your URL.
-3. That's it! Now all the channels will communicate through your bot deployed to Heroku.
-
-> You can switch project back to long polling instead of webhook once you need to route all messages to your local machine during development.
+1. В качестве NLU использовал CAILA. Имя пользователя "Comm IT". NLU файл лежит в проекте и называется `caila_import.json`. 
+2. Бот "реагирует" только на названия городов, написанных в именительном падеже. CAILA NLU распознает города в любом падеже,
+но WEATHER API с сайта _openweathermap.org_ принимает только именительную форму. Я пытался воспользоваться CAILA API, а именно 
+   конкретным методом `/api/caila/p/{accessToken}/nlu/inflect`, чтобы привести город к начальной форме, но ничего, кроме ошибок `Access key not found`
+    или `400 - Bad Request` так и не получил. А других морфологических библиотек для Kotlin не нашел.
