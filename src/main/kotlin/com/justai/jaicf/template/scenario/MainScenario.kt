@@ -2,25 +2,45 @@ package com.justai.jaicf.template.scenario
 
 import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
+import com.justai.jaicf.channel.telegram.telegram
+import com.justai.jaicf.template.utils.WeatherUtil
 
 val mainScenario = Scenario {
-    state("start") {
+    state("greeting") {
         activators {
             regex("/start")
-            intent("Hello")
+            intent("Greeting")
         }
+
         action {
+            val name = request.telegram?.run {
+                message.chat.firstName
+            }
+
             reactions.run {
-                image("https://media.giphy.com/media/ICOgUNjpvO0PC/source.gif")
-                sayRandom(
-                    "Hello! How can I help?",
-                    "Hi there! How can I help you?"
+                say(
+                    "Здравствуй, $name! Я - WeatherBot. Я могу помочь узнать погоду в любом городе. Давайте начнем!"
                 )
-                buttons(
-                    "Help me!",
-                    "How are you?",
-                    "What is your name?"
-                )
+            }
+        }
+    }
+
+    state("weather") {
+        activators {
+            intent("Weather")
+        }
+
+        action {
+            val weather = WeatherUtil()
+
+            val city = activator.caila?.run {
+                entities[0].value
+            }
+
+            if (city != null) {
+                reactions.say(weather.computeWeather(city))
+            } else {
+                reactions.go("/fallback")
             }
         }
     }
@@ -32,10 +52,9 @@ val mainScenario = Scenario {
 
         action {
             reactions.sayRandom(
-                "See you soon!",
-                "Bye-bye!"
+                "Пока!",
+                "Еще увидимся!"
             )
-            reactions.image("https://media.giphy.com/media/EE185t7OeMbTy/source.gif")
         }
     }
 
@@ -51,8 +70,8 @@ val mainScenario = Scenario {
 
     fallback {
         reactions.sayRandom(
-            "Sorry, I didn't get that...",
-            "Sorry, could you repeat please?"
+            "К сожалению, я не могу это разобрать. Пожалуйста, попробуйте снова.",
+            "Упс... Что-то пошло не так..."
         )
     }
 }

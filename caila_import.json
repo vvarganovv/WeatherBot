@@ -5,7 +5,7 @@
     "folder": "/"
   },
   "settings": {
-    "language": "en",
+    "language": "ru",
     "spellingCorrection": false,
     "classificationAlgorithm": "sts",
     "timezone": "UTC",
@@ -14,39 +14,47 @@
   "intents": [
     {
       "id": 6760,
-      "path": "/Bye",
+      "path": "/Greeting",
       "enabled": true,
       "shared": false,
       "phrases": [
         {
-          "text": "goodbye"
+          "text": "Привет"
         },
         {
-          "text": "bye"
+          "text": "Здравствуй"
         },
         {
-          "text": "see you"
+          "text": "Добрый"
         }
       ],
       "patterns": []
     },
     {
       "id": 6761,
-      "path": "/Hello",
+      "path": "/Weather",
       "enabled": true,
       "shared": false,
       "phrases": [
         {
-          "text": "hi"
+          "text": "Погода"
         },
         {
-          "text": "hello"
-        },
-        {
-          "text": "welcome"
+          "text": "Прогноз"
         }
       ],
-      "patterns": []
+      "patterns": [],
+      "slots": [
+        {
+          "name": "geo",
+          "entity": "mystem.geo",
+          "required": true,
+          "prompts": [
+            "Какой город Вас интересует?"
+          ]
+        }
+      ],
+      "priority": 0
     },
     {
       "id": 6762,
@@ -57,59 +65,38 @@
       "patterns": []
     },
     {
-      "id": 6763,
-      "path": "/Smalltalk/Help",
-      "description": "",
-      "answer": "I'm a templated bot and can't do useful things yet...",
-      "enabled": true,
-      "shared": false,
-      "phrases": [
-        {
-          "text": "help"
-        },
-        {
-          "text": "what can you do"
-        },
-        {
-          "text": "your functions"
-        },
-        {
-          "text": "your possibilities"
-        },
-        {
-          "text": "tell me about you"
-        }
-      ],
-      "patterns": []
-    },
-    {
       "id": 6764,
-      "path": "/Smalltalk/HowAreYou",
-      "answer": "I'm fine! Thank you!",
+      "path": "/Smalltalk/WhatIsYourName",
+      "answer": "Разработчик назвал меня WeatherBot.",
       "enabled": true,
       "shared": false,
       "phrases": [
         {
-          "text": "how are you"
+          "text": "Как тебя зовут"
+        },
+        {
+          "text": "Как я могу обращаться к тебе"
+        },
+        {
+          "text": "Назови свое имя"
         }
       ],
       "patterns": []
     },
     {
       "id": 6765,
-      "path": "/Smalltalk/WhatIsYourName",
-      "answer": "I don't have a name yet, I'm just a bot",
+      "path": "/Bye",
       "enabled": true,
       "shared": false,
       "phrases": [
         {
-          "text": "what is your name"
+          "text": "Пока"
         },
         {
-          "text": "how to name you"
+          "text": "До встречи"
         },
         {
-          "text": "say me your name"
+          "text": "До свиданья"
         }
       ],
       "patterns": []
@@ -117,11 +104,6 @@
   ],
   "entities": [],
   "enabledSystemEntities": [
-    "duckling.number",
-    "duckling.time",
-    "duckling.duration",
-    "duckling.phone-number",
-    "duckling.email",
-    "duckling.url"
+    "mystem.geo"
   ]
 }
